@@ -7,7 +7,7 @@ public class FileWork {
     File old = new File("1234.txt");
     File notOld = new File("1234_REPLACE.txt");
     
-    public void Read() throws IOException{
+    public String Read() throws IOException{
         try{
             //попытка чтения
             DataInputStream dais = new DataInputStream (new FileInputStream (old));
@@ -17,21 +17,26 @@ public class FileWork {
             dais.close();
 
             String entry = new String(SomeBytes, 0, SomeBytes.length);
-            forReplacer = entry;
-            
+            forReplacer = entry; 
             System.out.printf("Было:\n%s",entry);
+            return entry;
         }catch(Exception ex){
             ex.printStackTrace();
         }
+        return null;
+
+      
+        
     }
-    public void Replace() throws IOException{
+    public String Replace() throws IOException{
         FileWriter fileWriter = new FileWriter(notOld);
         //замена "public" на "private" и запись в файл
         forReplacer = forReplacer.replace("public", "private");
         fileWriter.write(forReplacer);
         fileWriter.close();
-        
         System.out.printf("\nстало: \n%s ",forReplacer);
+        return forReplacer;
+        
     }
 }
 
